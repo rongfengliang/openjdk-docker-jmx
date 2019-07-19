@@ -5,4 +5,4 @@ services:
      image: dalongrong/java-jmx-openjdk
      ports: 
      - "8080:8080"
-     - "11111:11111"
+     - "30384:30384"
