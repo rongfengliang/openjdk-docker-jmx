@@ -1,8 +1,21 @@
 version: "3"
 services: 
-   app:
-     build: ./
-     image: dalongrong/java-jmx-openjdk
-     ports: 
-     - "8080:8080"
-     - "30384:30384"
+  graphite:
+    image: graphiteapp/graphite-statsd
+    ports:
+    - "80:80"
+    - "2003-2004:2003-2004"
+    - "2023-2024:2023-2024"
+    - "8125:8125/udp"
+    - "8126:8126"
+  jmxtrans:
+    build: 
+      context: ./
+      dockerfile: Dockerfile-jmxtrans
+  app:
+    build: ./
+    image: dalongrong/java-jmx-openjdk
+    container_name: app
+    ports: 
+    - "8080:8080"
+    - "30384:30384"

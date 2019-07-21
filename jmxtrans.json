@@ -1,0 +1,35 @@
+{
+  "servers": [{
+    "port": "30384",
+    "host": "app",
+    "queries": [{
+        "obj": "java.lang:type=Memory",
+        "attr": ["HeapMemoryUsage", "NonHeapMemoryUsage"],
+        "outputWriters": [{
+          "@class": "com.googlecode.jmxtrans.model.output.GraphiteWriterFactory",
+          "port": 2003,
+          "host": "graphite"
+        }]
+      },
+      {
+        "obj": "Tomcat:type=ThreadPool,name=\"http-nio-8080\"",
+        "attr": ["acceptCount","currentThreadsBusy","currentThreadCount"],
+        "outputWriters": [{
+          "@class": "com.googlecode.jmxtrans.model.output.GraphiteWriterFactory",
+          "port": 2003,
+          "host": "graphite"
+        }]
+      }
+      ,
+      {
+        "obj": "java.lang:type=ClassLoading",
+        "attr": ["TotalLoadedClassCount","LoadedClassCount","UnloadedClassCount"],
+        "outputWriters": [{
+          "@class": "com.googlecode.jmxtrans.model.output.GraphiteWriterFactory",
+          "port": 2003,
+          "host": "graphite"
+        }]
+      }
+    ]
+  }]
+}

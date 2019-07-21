@@ -6,5 +6,6 @@ java \
 -Dcom.sun.management.jmxremote.authenticate=false \
 -Dcom.sun.management.jmxremote.rmi.port=30384 \
 -Dcom.sun.management.jmxremote.local.only=false \
--Djava.rmi.server.hostname=localhost \
+-Dcom.sun.management.jmxremote.host=app \
+-Djava.rmi.server.hostname=app \
 -jar /webapi-0.0.1-SNAPSHOT.jar

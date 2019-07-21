@@ -1,0 +1,9 @@
+FROM openjdk:8u222-jdk
+LABEL AUTHOR="dalongrong"
+LABEL EMAIL="1141591465@qq.com"
+WORKDIR /
+COPY jmxtrans-270-all.jar /jmxtrans-270-all.jar
+COPY docker-entrypiont-jmx.sh /docker-entrypiont.sh
+COPY jmxtrans.json /jmxtrans.json
+RUN chmod +x /docker-entrypiont.sh
+ENTRYPOINT [ "/docker-entrypiont.sh" ]
