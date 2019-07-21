@@ -2,31 +2,48 @@
   "servers": [{
     "port": "30384",
     "host": "app",
-    "queries": [{
-        "obj": "java.lang:type=Memory",
-        "attr": ["HeapMemoryUsage", "NonHeapMemoryUsage"],
-        "outputWriters": [{
-          "@class": "com.googlecode.jmxtrans.model.output.GraphiteWriterFactory",
-          "port": 2003,
-          "host": "graphite"
-        }]
-      },
+    "numQueryThreads" : 4,
+    "queries": [
       {
         "obj": "Tomcat:type=ThreadPool,name=\"http-nio-8080\"",
+        "resultAlias":"http-nio-8080",
         "attr": ["acceptCount","currentThreadsBusy","currentThreadCount"],
         "outputWriters": [{
           "@class": "com.googlecode.jmxtrans.model.output.GraphiteWriterFactory",
           "port": 2003,
-          "host": "graphite"
+          "host": "graphite",
+          "rootPrefix":"webapi",
+          "typeNames" : ["name"],
+          "flushStrategy" :"always",
+          "poolSize" : 10
+        }]
+      },
+      {
+        "obj": "java.lang:type=Memory",
+        "resultAlias":"Memory",
+        "attr" : [ "HeapMemoryUsage", "NonHeapMemoryUsage" ],
+        "outputWriters": [{
+          "@class": "com.googlecode.jmxtrans.model.output.GraphiteWriterFactory",
+          "port": 2003,
+          "host": "graphite",
+          "rootPrefix":"webapi",
+          "typeNames" : ["name"],
+          "flushStrategy" :"always",
+          "poolSize" : 10
         }]
       }
       ,
       {
         "obj": "java.lang:type=ClassLoading",
+        "resultAlias":"ClassLoading",
         "attr": ["TotalLoadedClassCount","LoadedClassCount","UnloadedClassCount"],
         "outputWriters": [{
           "@class": "com.googlecode.jmxtrans.model.output.GraphiteWriterFactory",
           "port": 2003,
+          "rootPrefix":"webapi",
+          "typeNames" : ["name"],
+          "flushStrategy" :"always",
+          "poolSize" : 10,
           "host": "graphite"
         }]
       }
